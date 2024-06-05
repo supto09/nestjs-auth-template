@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  #PostgreSQL
+  postgres:
+    image: postgres:latest
+    container_name: nest_auth_template_postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data:rw
+    networks:
+      - app-network
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+networks:
+  app-network: null
+
+volumes:
+  pg-data:
+    driver: local

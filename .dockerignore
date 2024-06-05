@@ -1,0 +1,9 @@
+Dockerfile
+docker-compose.yml
+docker-run-local.sh
+.dockerignore
+node_modules
+npm-debug.log
+dist
+.husky
+logs
