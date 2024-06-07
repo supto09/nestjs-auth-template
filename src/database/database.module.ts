@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   DATABASE_CONFIG_KEY,
   DatabaseConfigType,
-} from '../config/database.config';
+} from '@/config/database.config';
 import { ConfigService } from '@nestjs/config';
 
 @Module({

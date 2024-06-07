@@ -1,6 +1,5 @@
 import { registerAs } from '@nestjs/config';
 import { z } from 'zod';
-import * as process from 'node:process';
 
 const schema = z.object({
   host: z.string({ required_error: 'DB_HOST not available' }),
