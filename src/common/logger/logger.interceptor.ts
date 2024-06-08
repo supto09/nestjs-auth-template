@@ -40,7 +40,6 @@ export class LoggerInterceptor implements NestInterceptor {
       body: sanitizedBody,
     };
     this.logger.log(logData, 'Request log');
-    console.log('Yo', logData);
 
     return next.handle().pipe(
       tap((data) => {

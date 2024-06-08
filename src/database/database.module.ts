@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
+
 import {
   DATABASE_CONFIG_KEY,
   DatabaseConfigType,
-} from '../config/database.config';
-import { ConfigService } from '@nestjs/config';
+} from '@/config/configs/database.config';
 
 @Module({
   imports: [
