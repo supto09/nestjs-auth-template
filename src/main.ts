@@ -1,8 +1,6 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '@/app.module';
-import { instance } from '@/common/logger/winston.logger';
-import { WinstonModule } from 'nest-winston';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { WinstonModule } from 'nest-winston';
 import {
   DocumentBuilder,
   SwaggerCustomOptions,
@@ -10,6 +8,9 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
+
+import { AppModule } from '@/app.module';
+import { instance } from '@/common/logger/winston.logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -27,8 +28,6 @@ async function bootstrap() {
 
   // setup swagger
   setupSwagger(app);
-
-  // TODO add global exception filter
 
   await app.listen(3000);
 }

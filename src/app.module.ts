@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { DatabaseModule } from '@/database/database.module';
 import { MyConfigModule } from '@/config/my-config.module';
 import { CommonModule } from '@/common/common.module';

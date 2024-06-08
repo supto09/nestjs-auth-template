@@ -1,7 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { IamService } from '../service/iam.service';
 import { ApiTags } from '@nestjs/swagger';
-import { SignupRequestDto } from '@/iam/dto/signup-request.dto';
+
+import { IamService } from '@/iam/service/iam.service';
+import { SignUpRequestDto } from '@/iam/dto/signup-request.dto';
+import { LogInRequestDto } from '@/iam/dto/log-in-request.dto';
 
 @ApiTags('Iam')
 @Controller('iam')
@@ -9,7 +11,12 @@ export class IamController {
   constructor(private readonly iamService: IamService) {}
 
   @Post('signup')
-  signUp(@Body() signUpRequestDto: SignupRequestDto) {
+  signUp(@Body() signUpRequestDto: SignUpRequestDto) {
     return this.iamService.signUp(signUpRequestDto);
+  }
+
+  @Post('login')
+  login(@Body() logInRequestDto: LogInRequestDto) {
+    return this.iamService.login(logInRequestDto);
   }
 }

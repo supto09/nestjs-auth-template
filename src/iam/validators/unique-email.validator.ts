@@ -5,8 +5,9 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '@/iam/entities/user.entity';
 import { Repository } from 'typeorm';
+
+import { UserEntity } from '@/iam/entities/user.entity';
 
 @ValidatorConstraint({ async: true })
 export class UniqueEmailValidator implements ValidatorConstraintInterface {
