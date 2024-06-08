@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
@@ -11,6 +17,7 @@ import { UserMapper } from '@/iam/mappers/user.mapper';
 import UserDto from '@/iam/dto/user.dto';
 import jwtConfig from '@/config/configs/jwt.config';
 import { ConfigType } from '@nestjs/config';
+import { RefreshTokenRequestDto } from '@/iam/dto/refresh-token-request.dto';
 
 @Injectable()
 export class IamService {
@@ -57,6 +64,27 @@ export class IamService {
     }
 
     const userDto = this.userMapper.toDto(user);
+    return this.generateUserAuthInfo(userDto);
+  }
+
+  async tokenRefresh(refreshTokenRequestDto: RefreshTokenRequestDto) {
+    try {
+      const activeUserData = await this.jwtService.verifyAsync<{
+        sub: number;
+        email: string;
+      }>(refreshTokenRequestDto.token);
+      console.log('Data', activeUserData);
+
+      return this.generateUserAuthInfo({
+        id: activeUserData.sub,
+        email: activeUserData.email,
+      });
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
+  }
+
+  private async generateUserAuthInfo(userDto: UserDto) {
     const accessToken = await this.signToken(
       userDto,
       this.jwtConfigValue.accessTokenLifeTime,
